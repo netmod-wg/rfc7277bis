@@ -1,13 +1,10 @@
-# -*- outline -*-
-#
-
 This document defines a YANG data model for management of IP
-implementations.  The data model includes configuration data and state
-data.
+implementations.  The data model includes configuration and system
+state.  This document obsoletes RFC 7277.
 
 * Introduction
 
-This document defines a YANG ^RFC6020^ data model for
+This document defines a YANG ^RFC7950^ data model for
 management of IP implementations.
 
 The data model covers configuration of per-interface IPv4 and IPv6
@@ -15,19 +12,37 @@ parameters, and mappings of IP addresses to link-layer addresses.  It
 also provides information about which IP addresses are operationally
 used, and which link-layer mappings exist.  Per-interface parameters
 are added through augmentation of the interface data model defined in
-^RFC7223^.
+^I-D.bjorklund-netmod-rfc7223bis^.
+
+This version of the IP data model supports the Network
+Management Datastore Architecture (NMDA)
+^I-D.ietf-netmod-revised-datastores^.
+
+** Summary of Changes from RFC 7277
+
+The "ipv4" and "ipv6" subtrees with "config false" data nodes in the
+"/interfaces-state/interface" subtree are deprecated.  All "config
+false" data nodes are now present in the "ipv4" and "ipv6" subtrees in
+the "/interfaces/interface" subtree.
+
+Servers that do not implement NMDA, or that wish to support clients
+that do not implement NMDA, MAY implement the deprecated "ipv4" and
+"ipv6" subtrees in the "/interfaces-state/interface" subtree.
 
 ** Terminology
 
-The following terms are defined in ^RFC6241^ and are not redefined
-here:
+The following terms are defined in
+^I-D.ietf-netmod-revised-datastores^ and are not redefined here:
 
 - client
-- configuration data
 - server
-- state data
+- configuration
+- system state
+- operational state datastore
+- running configuration datastore
+- intended configuration datastore
 
-The following terms are defined in ^RFC6020^ and are not redefined
+The following terms are defined in ^RFC7950^ and are not redefined
 here:
 
 - augment
@@ -35,7 +50,7 @@ here:
 - data node
 
 The terminology for describing YANG data models is found in
-^RFC6020^.
+^RFC7950^.
 
 ** Tree Diagrams
 
@@ -56,97 +71,22 @@ marked with a colon (":").
 
 This document defines the YANG module "ietf-ip", which augments the
 "interface" and "interface-state" lists defined in the
-"ietf-interfaces" module ^RFC7223^ with
-IP-specific data nodes, and also adds IP-specific state data.
+"ietf-interfaces" module ^I-D.bjorklund-netmod-rfc7223bis^ with
+IP-specific data nodes.
 
-The data model has the following structure for IP configuration per
-interface:
+The data model has the following structure for IP data nodes per
+interface, excluding the deprecated data nodes:
 
-   +--rw if:interfaces
-      +--rw if:interface* [name]
-         ...
-         +--rw ipv4!
-         |  +--rw enabled?            boolean
-         |  +--rw forwarding?         boolean
-         |  +--rw mtu?                uint16
-         |  +--rw address* [ip]
-         |  |  +--rw ip               inet:ipv4-address-no-zone
-         |  |  +--rw (subnet)
-         |  |     +--:(prefix-length)
-         |  |     |  +--rw ip:prefix-length?   uint8
-         |  |     +--:(netmask)
-         |  |        +--rw ip:netmask?         yang:dotted-quad
-         |  +--rw neighbor* [ip]
-         |     +--rw ip                    inet:ipv4-address-no-zone
-         |     +--rw link-layer-address    yang:phys-address
-         +--rw ipv6!
-            +--rw enabled?            boolean
-            +--rw forwarding?         boolean
-            +--rw mtu?                uint32
-            +--rw address* [ip]
-            |  +--rw ip               inet:ipv6-address-no-zone
-            |  +--rw prefix-length    uint8
-            +--rw neighbor* [ip]
-            |  +--rw ip                    inet:ipv6-address-no-zone
-            |  +--rw link-layer-address    yang:phys-address
-            +--rw dup-addr-detect-transmits?   uint32
-            +--rw autoconf
-               +--rw create-global-addresses?        boolean
-               +--rw create-temporary-addresses?     boolean
-               +--rw temporary-valid-lifetime?       uint32
-               +--rw temporary-preferred-lifetime?   uint32
+!! include-figure ietf-ip.tree
 
-The data model defines two configuration containers per interface --
+The data model defines two containers per interface --
 "ipv4" and "ipv6", representing the IPv4 and IPv6 address families.
 In each container, there is a leaf "enabled" that controls whether or
 not the address family is enabled on that interface, and a leaf
 "forwarding" that controls whether or not IP packet forwarding for the
 address family is enabled on the interface.  In each container, there
-is also a list of configured addresses, and a list of configured
-mappings from IP addresses to link-layer addresses.
-
-The data model has the following structure for IP state per
-interface:
-
-   +--ro if:interfaces-state
-      +--ro if:interface* [name]
-         ...
-         +--ro ipv4!
-         |  +--ro forwarding?   boolean
-         |  +--ro mtu?          uint16
-         |  +--ro address* [ip]
-         |  |  +--ro ip               inet:ipv4-address-no-zone
-         |  |  +--ro (subnet)?
-         |  |  |  +--:(prefix-length)
-         |  |  |  |  +--ro prefix-length?   uint8
-         |  |  |  +--:(netmask)
-         |  |  |     +--ro netmask?         yang:dotted-quad
-         |  |  +--ro origin?          ip-address-origin
-         |  +--ro neighbor* [ip]
-         |     +--ro ip                    inet:ipv4-address-no-zone
-         |     +--ro link-layer-address?   yang:phys-address
-         |     +--ro origin?               neighbor-origin
-         +--ro ipv6!
-            +--ro forwarding?   boolean
-            +--ro mtu?          uint32
-            +--ro address* [ip]
-            |  +--ro ip               inet:ipv6-address-no-zone
-            |  +--ro prefix-length    uint8
-            |  +--ro origin?          ip-address-origin
-            |  +--ro status?          enumeration
-            +--ro neighbor* [ip]
-               +--ro ip                    inet:ipv6-address-no-zone
-               +--ro link-layer-address?   yang:phys-address
-               +--ro origin?               neighbor-origin
-               +--ro is-router?            empty
-               +--ro state?                enumeration
-
-The data model defines two state containers per interface -- "ipv4"
-and "ipv6", representing the IPv4 and IPv6 address families.  In each
-container, there is a leaf "forwarding" that indicates whether or not
-IP packet forwarding is enabled on that interface.  In each container,
-there is also a list of all addresses in use and a list of known
-mappings from IP addresses to link-layer addresses.
+is also a list of addresses, and a list of mappings from IP addresses
+to link-layer addresses.
 
 * Relationship to the IP-MIB
 
@@ -161,60 +101,43 @@ messages.  The corresponding YANG data nodes are defined in ^RFC8022^.
 The entries in "ipv4/neighbor" and "ipv6/neighbor" are mapped to
 ipNetToPhysicalTable.
 
-The following tables list the YANG data nodes with corresponding objects
+The following table lists the YANG data nodes with corresponding objects
 in the IP-MIB.
 
--- YANG Interface Configuration Data Nodes and Related IP-MIB Objects
-| YANG data node in /if:interfaces/if:interface | IP-MIB object                                               |
-|-----------------------------------------------+-------------------------------------------------------------|
-| ipv4/enabled                                  | ipv4InterfaceEnableStatus                                   |
-| ipv4/address                                  | ipAddressEntry                                              |
-| ipv4/address/ip                               | ipAddressAddrType ipAddressAddr                             |
-| ipv4/neighbor                                 | ipNetToPhysicalEntry                                        |
-| ipv4/neighbor/ip                              | ipNetToPhysicalNetAddressType ipNetToPhysicalNetAddress |
-| ipv4/neighbor/link-layer-address              | ipNetToPhysicalPhysAddress                                  |
-| ipv6/enabled                                  | ipv6InterfaceEnableStatus                                   |
-| ipv6/forwarding                               | ipv6InterfaceForwarding                                     |
-| ipv6/address                                  | ipAddressEntry                                              |
-| ipv6/address/ip                               | ipAddressAddrType ipAddressAddr                             |
-| ipv6/neighbor                                 | ipNetToPhysicalEntry                                        |
-| ipv6/neighbor/link-layer-address              | ipNetToPhysicalPhysAddress                                  |
-| ipv6/neighbor/origin                          | ipNetToPhysicalType                                         |
-
--- YANG Interface State Data Nodes and Related IP-MIB Objects
-| YANG data node in /if:interfaces-state/if:interface | IP-MIB object                                               |
-|-----------------------------------------------------+-------------------------------------------------------------|
-| ipv4                                                | ipv4InterfaceEnableStatus                                   |
-| ipv4/address                                        | ipAddressEntry                                              |
-| ipv4/address/ip                                     | ipAddressAddrType ipAddressAddr                             |
-| ipv4/address/origin                                 | ipAddressOrigin                                             |
-| ipv4/neighbor                                       | ipNetToPhysicalEntry                                        |
-| ipv4/neighbor/ip                                    | ipNetToPhysicalNetAddressType ipNetToPhysicalNetAddress |
-| ipv4/neighbor/link-layer-address                    | ipNetToPhysicalPhysAddress                                  |
-| ipv4/neighbor/origin                                | ipNetToPhysicalType                                         |
-| ipv6                                                | ipv6InterfaceEnableStatus                                   |
-| ipv6/forwarding                                     | ipv6InterfaceForwarding                                     |
-| ipv6/address                                        | ipAddressEntry                                              |
-| ipv6/address/ip                                     | ipAddressAddrType ipAddressAddr                             |
-| ipv6/address/origin                                 | ipAddressOrigin                                             |
-| ipv6/address/status                                 | ipAddressStatus                                             |
-| ipv6/neighbor                                       | ipNetToPhysicalEntry                                        |
-| ipv6/neighbor/ip                                    | ipNetToPhysicalNetAddressType ipNetToPhysicalNetAddress |
-| ipv6/neighbor/link-layer-address                    | ipNetToPhysicalPhysAddress                                  |
-| ipv6/neighbor/origin                                | ipNetToPhysicalType                                         |
-| ipv6/neighbor/state                                 | ipNetToPhysicalState                                        |
+-- YANG Interface Data Nodes and Related IP-MIB Objects
+| YANG data node in /if:interfaces/if:interface | IP-MIB object                                           |   |               |                      |
+|-----------------------------------------------+---------------------------------------------------------+---+---------------+----------------------|
+| ipv4                                          | ipv4InterfaceEnableStatus                               |   |               |                      |
+| ipv4/enabled                                  | ipv4InterfaceEnableStatus                               |   |               |                      |
+| ipv4/address                                  | ipAddressEntry                                          |   |               |                      |
+| ipv4/address/ip                               | ipAddressAddrType ipAddressAddr                         |   |               |                      |
+| ipv4/neighbor                                 | ipNetToPhysicalEntry                                    |   |               |                      |
+| ipv4/neighbor/ip                              | ipNetToPhysicalNetAddressType ipNetToPhysicalNetAddress |   |               |                      |
+| ipv4/neighbor/link-layer-address              | ipNetToPhysicalPhysAddress                              |   |               |                      |
+| ipv4/neighbor/origin                          | ipNetToPhysicalType                                     |   |               |                      |
+| ipv6                                          | ipv6InterfaceEnableStatus                               |   |               |                      |
+| ipv6/enabled                                  | ipv6InterfaceEnableStatus                               |   |               |                      |
+| ipv6/forwarding                               | ipv6InterfaceForwarding                                 |   |               |                      |
+| ipv6/address                                  | ipAddressEntry                                          |   |               |                      |
+| ipv6/address/ip                               | ipAddressAddrType ipAddressAddr                         |   |               |                      |
+| ipv4/address/origin                           | ipAddressOrigin                                         |   |               |                      |
+| ipv6/address/status                           | ipAddressStatus                                         |   | ipv6/neighbor | ipNetToPhysicalEntry |
+| ipv6/neighbor/ip                              | ipNetToPhysicalNetAddressType ipNetToPhysicalNetAddress |   |               |                      |
+| ipv6/neighbor/link-layer-address              | ipNetToPhysicalPhysAddress                              |   |               |                      |
+| ipv6/neighbor/origin                          | ipNetToPhysicalType                                     |   |               |                      |
+| ipv6/neighbor/state                           | ipNetToPhysicalState                                    |   |               |                      |
 
 * IP Management YANG Module @module@
 
 This module imports typedefs from ^RFC6991^ and
-^RFC7223^, and it references ^RFC0791^, ^RFC0826^,
+^I-D.bjorklund-netmod-rfc7223bis^, and it references ^RFC0791^, ^RFC0826^,
 ^RFC2460^, ^RFC4861^, ^RFC4862^, ^RFC4941^ and
 ^RFC7217^.
 
 RFC Ed.: update the date below with the date of RFC publication and
 remove this note.
 
-!! include-figure ietf-ip.yang extract-to="ietf-ip@2014-06-16.yang"
+!! include-figure ietf-ip.yang extract-to="ietf-ip@2017-08-21.yang"
 
 * IANA Considerations @iana@
 
@@ -292,12 +215,21 @@ Schoenwaelder, and Dave Thaler for their helpful comments.
 
 *! start-appendix
 
-* Example: NETCONF <get> reply @get@
+* Example: NETCONF <get-config> reply
 
-This section gives an example of a reply to the NETCONF <get> request
-for a device that implements the data model defined in this document.
+This section gives an example of a reply to the NETCONF <get-config>
+request for the running configuration datastore for a device that
+implements the data model defined in this document.
 
-!! include-figure ex-get-reply.xml
+!! include-figure ex-get-config-reply.xml
+
+* Example: NETCONF <get-data> Reply
+
+This section gives an example of a reply to the NETCONF <get-data>
+request for the operational state datastore for a device that
+implements the data model defined in this document.
+
+!! include-figure ex-get-data-reply.load
 
 #*! start-back
 #
@@ -309,7 +241,7 @@ for a device that implements the data model defined in this document.
     ipr trust200902;
     category std;
     references references.xml;
-    obsoletes rfc7223;
+    obsoletes rfc7277;
     title "A YANG Data Model for IP Management";
     abbreviation "YANG IP Management";
     contributor "author:Martin Bjorklund:Tail-f Systems:mbj@tail-f.com";

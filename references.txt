@@ -1,6 +1,7 @@
 {{references:
     title "Normative References";
     ietf-ref RFC0791;
+    ietf-ref RFC2119;
     ietf-ref RFC2460;
     ietf-ref RFC3688;
     ietf-ref RFC4861;
@@ -9,9 +10,10 @@
     ietf-ref RFC6020;
     ietf-ref RFC6241;
     ietf-ref RFC6991;
-    ietf-ref RFC7223;
+    ietf-ref RFC7950;
 
-#xml <reference anchor="I-D.bjorklund-netmod-rfc7223bis"><front><title>A YANG Data Model for Interface Configuration</title><author initials="M" surname="Bjorklund" fullname="Martin Bjorklund"><organization/></author><date month="December" day="8" year="2010"/><abstract><t>This document defines a YANG data model for the configuration of network interfaces.  It is expected that interface type specific configuration data models augment the generic interfaces data model defined in this document.</t></abstract></front><seriesInfo name="Internet-Draft" value="draft-bjorklund-netmod-interfaces-cfg-00"/><format type="TXT" target="http://www.ietf.org/internet-drafts/draft-bjorklund-netmod-interfaces-cfg-00.txt"/></reference>;
+xml <reference anchor="I-D.bjorklund-netmod-rfc7223bis"><front><title>A YANG Data Model for Interface Configuration</title><author initials="M" surname="Bjorklund" fullname="Martin Bjorklund"><organization/></author><date month="August" day="21" year="2017"/></front><seriesInfo name="Internet-Draft" value="draft-bjorklund-netmod-rfc7223bis-00"/></reference>;
+    ietf-ref I-D.ietf-netmod-revised-datastores;
 }}
 
 {{references:

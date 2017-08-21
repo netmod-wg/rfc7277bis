@@ -76,22 +76,24 @@ example-system.oper.yang: example-system.yang
 	grep -v must $< > $@
 .INTERMEDIATE: example-system.oper.yang
 
-validate: validate-std-yang validate-ex-yang validate-ex-xml
+validate: validate-std-yang validate-ex-xml
 
 validate-std-yang:
 	pyang --ietf --max-line-length 69 $(std_yang)
 
-validate-ex-yang:
+validate-ex-yang: $(ex_yang)
 	pyang --canonical --max-line-length 69 $(ex_yang)
 
 validate-ex-xml:
-	env YANG_MODPATH=../iana-if-type:$(YANG_MODPATH) \
+	env YANG_MODPATH=../iana-if-type:../rfc7223bis:$(YANG_MODPATH) \
+	  yang2dsdl -x -j -t get-config-reply -v ex-get-config-reply.xml \
+	  ../rfc7223bis/ietf-interfaces.yang \
+	  ietf-ip.yang;
+	env YANG_MODPATH=../iana-if-type:../rfc7223bis:$(YANG_MODPATH) \
 	  yang2dsdl -x -j -t get-reply -v ex-get-data-reply.xml \
 	  ../datastore-dt/ietf-origin.yang \
-	  ietf-interfaces.yang ex-ethernet.yang ex-vlan.yang;
-	env YANG_MODPATH=../iana-if-type:$(YANG_MODPATH) \
-	  yang2dsdl -x -j -t get-config-reply -v ex-get-config-reply.xml \
-	  ietf-interfaces.yang ex-ethernet.yang ex-vlan.yang
+	  ../rfc7223bis/ietf-interfaces.yang
+	  ietf-ip.yang;
 
 ${references_xml}: ${references_src}
 	$(oxtradoc) -m mkback $< > $@

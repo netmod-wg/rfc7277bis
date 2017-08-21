@@ -4,31 +4,10 @@
   <data>
     <interfaces
         xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces"
-        xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">
-      <interface>
-        <name>eth0</name>
-        <type>ianaift:ethernetCsmacd</type>
-        <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
-          <address>
-            <ip>192.0.2.1</ip>
-            <prefix-length>24</prefix-length>
-          </address>
-        </ipv4>
-        <ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
-          <mtu>1280</mtu>
-          <address>
-            <ip>2001:db8::10</ip>
-            <prefix-length>32</prefix-length>
-          </address>
-          <dup-addr-detect-transmits>0</dup-addr-detect-transmits>
-        </ipv6>
-      </interface>
-    </interfaces>
+        xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type"
+        xmlns:or="urn:ietf:params:xml:ns:yang:ietf-origin">
 
-    <interfaces-state
-        xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces"
-        xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">
-      <interface>
+      <interface or:origin="or:intended">
         <name>eth0</name>
         <type>ianaift:ethernetCsmacd</type>
         <!-- other parameters from ietf-interfaces omitted -->
@@ -43,38 +22,40 @@
           </address>
           <neighbor>
             <ip>192.0.2.2</ip>
-            <link-layer-address>00:01:02:03:04:05</link-layer-address>
+            <link-layer-address><!-- PPL -->00:01:02:03:04:05</link-layer-address>
           </neighbor>
         </ipv4>
         <ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
           <forwarding>false</forwarding>
-          <mtu>1500</mtu>
+          <mtu>1280</mtu>
           <address>
             <ip>2001:db8::10</ip>
             <prefix-length>32</prefix-length>
             <origin>static</origin>
             <status>preferred</status>
           </address>
-          <address>
+          <address or:origin="or:learned">
             <ip>2001:db8::1:100</ip>
             <prefix-length>32</prefix-length>
             <origin>dhcp</origin>
             <status>preferred</status>
           </address>
-          <neighbor>
+          <dup-addr-detect-transmits>0</dup-addr-detect-transmits>
+          <neighbor or:origin="or:learned">
             <ip>2001:db8::1</ip>
-            <link-layer-address>00:01:02:03:04:05</link-layer-address>
+            <link-layer-address><!-- PPL -->00:01:02:03:04:05</link-layer-address>
             <origin>dynamic</origin>
             <is-router/>
             <state>reachable</state>
           </neighbor>
-          <neighbor>
+          <neighbor or:origin="or:learned">
             <ip>2001:db8::4</ip>
             <origin>dynamic</origin>
             <state>incomplete</state>
           </neighbor>
         </ipv6>
       </interface>
-    </interfaces-state>
+
+    </interfaces>
   </data>
 </rpc-reply>
