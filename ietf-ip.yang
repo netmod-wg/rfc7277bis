@@ -237,11 +237,11 @@ module ietf-ip {
           "A list of mappings from IPv4 addresses to
            link-layer addresses.
 
-           Entries in this list in the intended configuration
-           datastore are used as static entries in the ARP Cache.
+           Entries in this list in the intended configuration are
+           used as static entries in the ARP Cache.
 
-           In the operational state datastore, this list represents
-           the ARP Cache.";
+           In the operational state, this list represents the ARP
+           Cache.";
         reference
           "RFC 826: An Ethernet Address Resolution Protocol";
 
@@ -258,6 +258,7 @@ module ietf-ip {
         }
         leaf origin {
           type neighbor-origin;
+          config false;
           description
             "The origin of this neighbor entry.";
         }
@@ -402,12 +403,11 @@ module ietf-ip {
           "A list of mappings from IPv6 addresses to
            link-layer addresses.
 
-           Entries in this list in the intended configuration
-           datastore are used as static entries in the Neighbor
-           Cache.
+           Entries in this list in the intended configuration are
+           used as static entries in the Neighbor Cache.
 
-           In the operational state datastore, this list represents
-           the Neighbor Cache.";
+           In the operational state, this list represents the
+           Neighbor Cache.";
         reference
           "RFC 4861: Neighbor Discovery for IP version 6 (IPv6)";
 
@@ -420,7 +420,10 @@ module ietf-ip {
           type yang:phys-address;
           mandatory true;
           description
-            "The link-layer address of the neighbor node.";
+            "The link-layer address of the neighbor node.
+
+             In the operational state, if the neighbor's 'state' leaf
+             is 'incomplete', this leaf is not instantiated.";
         }
         leaf origin {
           type neighbor-origin;

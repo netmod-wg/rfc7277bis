@@ -38,9 +38,10 @@ The following terms are defined in
 - server
 - configuration
 - system state
-- operational state datastore
+- intended configuration
 - running configuration datastore
-- intended configuration datastore
+- operational state
+- operational state datastore
 
 The following terms are defined in ^RFC7950^ and are not redefined
 here:
