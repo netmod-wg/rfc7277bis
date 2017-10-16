@@ -2,7 +2,7 @@
 # https://pypi.python.org/pypi/xml2rfc
 # https://github.com/Juniper/libslax/tree/master/doc/oxtradoc
 
-output_base = draft-bjorklund-netmod-rfc7277bis
+output_base = draft-ietf-netmod-rfc7277bis
 draft = $(output_base).org
 examples =
 trees = ietf-ip.tree
@@ -53,6 +53,8 @@ next_ver ?= $(shell printf "%.2d" $$((1$(current_ver)-99)))
 endif
 output = ${output_base}-${next_ver}
 
+mdir = $(shell dirname `which pyang`)/../modules
+
 .PHONY: latest submit clean validate
 
 submit: ${output}.txt
@@ -85,14 +87,16 @@ validate-ex-yang: $(ex_yang)
 	pyang --canonical --max-line-length 69 $(ex_yang)
 
 validate-ex-xml:
-	env YANG_MODPATH=../iana-if-type:../rfc7223bis:$(YANG_MODPATH) \
+	env YANG_MODPATH=../rfc7223bis:$(YANG_MODPATH) \
 	  yang2dsdl -x -j -t get-config-reply -v ex-get-config-reply.xml \
 	  ../rfc7223bis/ietf-interfaces.yang \
+	  $(mdir)/iana/iana-if-type.yang \
 	  ietf-ip.yang;
-	env YANG_MODPATH=../iana-if-type:../rfc7223bis:$(YANG_MODPATH) \
+	env YANG_MODPATH=../rfc7223bis:$(YANG_MODPATH) \
 	  yang2dsdl -x -j -t get-reply -v ex-get-data-reply.xml \
 	  ../datastore-dt/ietf-origin.yang \
-	  ../rfc7223bis/ietf-interfaces.yang
+	  ../rfc7223bis/ietf-interfaces.yang \
+	  $(mdir)/iana/iana-if-type.yang \
 	  ietf-ip.yang;
 
 ${references_xml}: ${references_src}
