@@ -106,27 +106,28 @@ The following table lists the YANG data nodes with corresponding objects
 in the IP-MIB.
 
 -- YANG Interface Data Nodes and Related IP-MIB Objects
-| YANG data node in /if:interfaces/if:interface | IP-MIB object                                           |   |               |                      |
-|-----------------------------------------------+---------------------------------------------------------+---+---------------+----------------------|
-| ipv4                                          | ipv4InterfaceEnableStatus                               |   |               |                      |
-| ipv4/enabled                                  | ipv4InterfaceEnableStatus                               |   |               |                      |
-| ipv4/address                                  | ipAddressEntry                                          |   |               |                      |
-| ipv4/address/ip                               | ipAddressAddrType ipAddressAddr                         |   |               |                      |
-| ipv4/neighbor                                 | ipNetToPhysicalEntry                                    |   |               |                      |
-| ipv4/neighbor/ip                              | ipNetToPhysicalNetAddressType ipNetToPhysicalNetAddress |   |               |                      |
-| ipv4/neighbor/link-layer-address              | ipNetToPhysicalPhysAddress                              |   |               |                      |
-| ipv4/neighbor/origin                          | ipNetToPhysicalType                                     |   |               |                      |
-| ipv6                                          | ipv6InterfaceEnableStatus                               |   |               |                      |
-| ipv6/enabled                                  | ipv6InterfaceEnableStatus                               |   |               |                      |
-| ipv6/forwarding                               | ipv6InterfaceForwarding                                 |   |               |                      |
-| ipv6/address                                  | ipAddressEntry                                          |   |               |                      |
-| ipv6/address/ip                               | ipAddressAddrType ipAddressAddr                         |   |               |                      |
-| ipv4/address/origin                           | ipAddressOrigin                                         |   |               |                      |
-| ipv6/address/status                           | ipAddressStatus                                         |   | ipv6/neighbor | ipNetToPhysicalEntry |
-| ipv6/neighbor/ip                              | ipNetToPhysicalNetAddressType ipNetToPhysicalNetAddress |   |               |                      |
-| ipv6/neighbor/link-layer-address              | ipNetToPhysicalPhysAddress                              |   |               |                      |
-| ipv6/neighbor/origin                          | ipNetToPhysicalType                                     |   |               |                      |
-| ipv6/neighbor/state                           | ipNetToPhysicalState                                    |   |               |                      |
+| YANG data node in /if:interfaces/if:interface | IP-MIB object                                           |
+|-----------------------------------------------+---------------------------------------------------------|
+| ipv4                                          | ipv4InterfaceEnableStatus                               |
+| ipv4/enabled                                  | ipv4InterfaceEnableStatus                               |
+| ipv4/address                                  | ipAddressEntry                                          |
+| ipv4/address/ip                               | ipAddressAddrType ipAddressAddr                         |
+| ipv4/neighbor                                 | ipNetToPhysicalEntry                                    |
+| ipv4/neighbor/ip                              | ipNetToPhysicalNetAddressType ipNetToPhysicalNetAddress |
+| ipv4/neighbor/link-layer-address              | ipNetToPhysicalPhysAddress                              |
+| ipv4/neighbor/origin                          | ipNetToPhysicalType                                     |
+| ipv6                                          | ipv6InterfaceEnableStatus                               |
+| ipv6/enabled                                  | ipv6InterfaceEnableStatus                               |
+| ipv6/forwarding                               | ipv6InterfaceForwarding                                 |
+| ipv6/address                                  | ipAddressEntry                                          |
+| ipv6/address/ip                               | ipAddressAddrType ipAddressAddr                         |
+| ipv4/address/origin                           | ipAddressOrigin                                         |
+| ipv6/address/status                           | ipAddressStatus                                         |
+| ipv6/neighbor                                 | ipNetToPhysicalEntry                                    |
+| ipv6/neighbor/ip                              | ipNetToPhysicalNetAddressType ipNetToPhysicalNetAddress |
+| ipv6/neighbor/link-layer-address              | ipNetToPhysicalPhysAddress                              |
+| ipv6/neighbor/origin                          | ipNetToPhysicalType                                     |
+| ipv6/neighbor/state                           | ipNetToPhysicalState                                    |
 
 * IP Management YANG Module @module@
 
