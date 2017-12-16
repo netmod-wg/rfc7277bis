@@ -139,7 +139,7 @@ This module imports typedefs from ^RFC6991^ and
 RFC Ed.: update the date below with the date of RFC publication and
 remove this note.
 
-!! include-figure ietf-ip.yang extract-to="ietf-ip@2017-08-21.yang"
+!! include-figure ietf-ip.yang extract-to="ietf-ip@2017-12-16.yang"
 
 * IANA Considerations @iana@
 

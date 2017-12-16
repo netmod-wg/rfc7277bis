@@ -14,7 +14,7 @@ module ietf-ip {
   }
 
   organization
-    "IETF NETMOD (NETCONF Data Modeling Language) Working Group";
+    "IETF NETMOD (Network Modeling) Working Group";
 
   contact
     "WG Web:   <http://tools.ietf.org/wg/netmod/>
@@ -39,7 +39,7 @@ module ietf-ip {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2017-08-21 {
+  revision 2017-12-16 {
     description
       "Updated to support NMDA.";
     reference
