@@ -13,20 +13,22 @@
         <!-- other parameters from ietf-interfaces omitted -->
 
         <ipv4 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
-          <forwarding>false</forwarding>
-          <mtu>1500</mtu>
+          <enabled or:origin="or:default">true</enabled>
+          <forwarding or:origin="or:default">false</forwarding>
+          <mtu or:origin="or:system">1500</mtu>
           <address>
             <ip>192.0.2.1</ip>
             <prefix-length>24</prefix-length>
             <origin>static</origin>
           </address>
-          <neighbor>
+          <neighbor or:origin="or:learned">
             <ip>192.0.2.2</ip>
             <link-layer-address><!-- PPL -->00:01:02:03:04:05</link-layer-address>
           </neighbor>
         </ipv4>
         <ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
-          <forwarding>false</forwarding>
+          <enabled or:origin="or:default">true</enabled>
+          <forwarding or:origin="or:default">false</forwarding>
           <mtu>1280</mtu>
           <address>
             <ip>2001:db8::10</ip>
