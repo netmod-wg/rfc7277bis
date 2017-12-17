@@ -12,7 +12,7 @@ parameters, and mappings of IP addresses to link-layer addresses.  It
 also provides information about which IP addresses are operationally
 used, and which link-layer mappings exist.  Per-interface parameters
 are added through augmentation of the interface data model defined in
-^I-D.bjorklund-netmod-rfc7223bis^.
+^I-D.ietf-netmod-rfc7223bis^.
 
 This version of the IP data model supports the Network
 Management Datastore Architecture (NMDA)
@@ -30,6 +30,12 @@ that do not implement NMDA, MAY implement the deprecated "ipv4" and
 "ipv6" subtrees in the "/interfaces-state/interface" subtree.
 
 ** Terminology
+
+The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+"OPTIONAL" in this document are to be interpreted as described in BCP
+14, ^RFC2119^ ^RFC8174^ when, and only when, they appear in all capitals,
+as shown here.
 
 The following terms are defined in
 ^I-D.ietf-netmod-revised-datastores^ and are not redefined here:
@@ -55,24 +61,14 @@ The terminology for describing YANG data models is found in
 
 ** Tree Diagrams
 
-A simplified graphical representation of the data model is used in
-this document.  The meaning of the symbols in these
-diagrams is as follows:
-
-- Brackets "[" and "]" enclose list keys.
-- Abbreviations before data node names: "rw" means configuration
- data (read-write), and "ro" means state data (read-only).
-- Symbols after data node names: "?" means an optional node, "!" means
- a presence container, and "*" denotes a list and leaf-list.
-- Parentheses enclose choice and case nodes, and case nodes are also
-marked with a colon (":").
-- Ellipsis ("...") stands for contents of subtrees that are not shown.
+Tree diagrams used in this document follow the notation defined in
+^I-D.ietf-netmod-yang-tree-diagrams^.
 
 * IP Data Model
 
 This document defines the YANG module "ietf-ip", which augments the
 "interface" and "interface-state" lists defined in the
-"ietf-interfaces" module ^I-D.bjorklund-netmod-rfc7223bis^ with
+"ietf-interfaces" module ^I-D.ietf-netmod-rfc7223bis^ with
 IP-specific data nodes.
 
 The data model has the following structure for IP data nodes per
@@ -132,7 +128,7 @@ in the IP-MIB.
 * IP Management YANG Module @module@
 
 This module imports typedefs from ^RFC6991^ and
-^I-D.bjorklund-netmod-rfc7223bis^, and it references ^RFC0791^, ^RFC0826^,
+^I-D.ietf-netmod-rfc7223bis^, and it references ^RFC0791^, ^RFC0826^,
 ^RFC2460^, ^RFC4861^, ^RFC4862^, ^RFC4941^ and
 ^RFC7217^.
 

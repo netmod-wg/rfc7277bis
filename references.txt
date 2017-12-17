@@ -11,8 +11,9 @@
     ietf-ref RFC6241;
     ietf-ref RFC6991;
     ietf-ref RFC7950;
+    ietf-ref RFC8174;
 
-xml <reference anchor="I-D.bjorklund-netmod-rfc7223bis"><front><title>A YANG Data Model for Interface Configuration</title><author initials="M" surname="Bjorklund" fullname="Martin Bjorklund"><organization/></author><date month="August" day="21" year="2017"/></front><seriesInfo name="Internet-Draft" value="draft-bjorklund-netmod-rfc7223bis-00"/></reference>;
+    ietf-ref I-D.ietf-netmod-rfc7223bis;
     ietf-ref I-D.ietf-netmod-revised-datastores;
 }}
 
@@ -24,4 +25,5 @@ xml <reference anchor="I-D.bjorklund-netmod-rfc7223bis"><front><title>A YANG Dat
     ietf-ref RFC6536;
     ietf-ref RFC7217;
     ietf-ref RFC8022;
+    ietf-ref I-D.ietf-netmod-yang-tree-diagrams;
 }}
