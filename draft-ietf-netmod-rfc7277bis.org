@@ -231,6 +231,9 @@ This section gives an example of a reply to the NETCONF <get-data>
 request for the operational state datastore for a device that
 implements the data model defined in this document.
 
+This example uses the "origin" annotation, which is defined in the
+module "ietf-origin" ^I-D.ietf-netmod-revised-datastores^.
+
 !! include-figure ex-get-data-reply.load
 
 #*! start-back
