@@ -93,7 +93,7 @@ validate-ex-xml:
 	  $(mdir)/iana/iana-if-type.yang \
 	  ietf-ip.yang;
 	env YANG_MODPATH=../rfc7223bis:$(YANG_MODPATH) \
-	  yang2dsdl -x -j -t get-reply -v ex-get-data-reply.xml \
+	  yang2dsdl -x -j -t get-data-reply -v ex-get-data-reply.xml \
 	  ../datastore-dt/ietf-origin.yang \
 	  ../rfc7223bis/ietf-interfaces.yang \
 	  $(mdir)/iana/iana-if-type.yang \
