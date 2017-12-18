@@ -7,10 +7,13 @@
     ietf-ref RFC4861;
     ietf-ref RFC4862;
     ietf-ref RFC4941;
+    ietf-ref RFC5246;
     ietf-ref RFC6020;
     ietf-ref RFC6241;
+    ietf-ref RFC6242;
     ietf-ref RFC6991;
     ietf-ref RFC7950;
+    ietf-ref RFC8040;
     ietf-ref RFC8174;
 
     ietf-ref I-D.ietf-netmod-rfc7223bis;
@@ -21,7 +24,6 @@
     title "Informative References";
     ietf-ref RFC0826;
     ietf-ref RFC4293;
-    ietf-ref RFC6242;
     ietf-ref RFC6536;
     ietf-ref RFC7217;
     ietf-ref RFC8022;

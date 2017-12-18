@@ -159,13 +159,17 @@ registry ^RFC6020^.
 
 * Security Considerations
 
-The YANG module defined in this memo is designed to be accessed via
-the NETCONF protocol ^RFC6241^.  The lowest NETCONF layer is the
-secure transport layer and the mandatory-to-implement secure transport
-is SSH ^RFC6242^.  The NETCONF access control model ^RFC6536^ provides
-the means to restrict access for particular NETCONF users to a
-pre-configured subset of all available NETCONF protocol operations and
-content.
+The YANG module defined in this document is designed to be accessed
+via network management protocols such as NETCONF ^RFC6241^ or RESTCONF
+^RFC8040^. The lowest NETCONF layer is the secure transport layer, and
+the mandatory-to-implement secure transport is Secure Shell (SSH)
+^RFC6242^. The lowest RESTCONF layer is HTTPS, and the
+mandatory-to-implement secure transport is TLS ^RFC5246^.
+
+The NETCONF access control model ^RFC6536^ provides the means to
+restrict access for particular NETCONF or RESTCONF users to a
+preconfigured subset of all available NETCONF or RESTCONF protocol
+operations and content.
 
 There are a number of data nodes defined in the YANG module which are
 writable/creatable/deletable (i.e., config true, which is the
