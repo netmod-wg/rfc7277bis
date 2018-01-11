@@ -23,7 +23,7 @@
           </address>
           <neighbor or:origin="or:learned">
             <ip>192.0.2.2</ip>
-            <link-layer-address><!-- PPL -->00:01:02:03:04:05</link-layer-address>
+            <link-layer-address><!-- PPL -->00:00:5E:00:53:AB</link-layer-address>
           </neighbor>
         </ipv4>
         <ipv6 xmlns="urn:ietf:params:xml:ns:yang:ietf-ip">
@@ -45,7 +45,7 @@
           <dup-addr-detect-transmits>0</dup-addr-detect-transmits>
           <neighbor or:origin="or:learned">
             <ip>2001:db8::1</ip>
-            <link-layer-address><!-- PPL -->00:01:02:03:04:05</link-layer-address>
+            <link-layer-address><!-- PPL -->00:00:5E:00:53:AB</link-layer-address>
             <origin>dynamic</origin>
             <is-router/>
             <state>reachable</state>
