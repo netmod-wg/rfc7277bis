@@ -2,6 +2,9 @@ This document defines a YANG data model for management of IP
 implementations.  The data model includes configuration and system
 state.  This document obsoletes RFC 7277.
 
+The YANG model in this document conforms to the Network Management
+Datastore Architecture defined in I-D.ietf-netmod-revised-datastores.
+
 * Introduction
 
 This document defines a YANG ^RFC7950^ data model for
@@ -159,12 +162,13 @@ registry ^RFC6020^.
 
 * Security Considerations
 
-The YANG module defined in this document is designed to be accessed
-via network management protocols such as NETCONF ^RFC6241^ or RESTCONF
-^RFC8040^. The lowest NETCONF layer is the secure transport layer, and
-the mandatory-to-implement secure transport is Secure Shell (SSH)
-^RFC6242^. The lowest RESTCONF layer is HTTPS, and the
-mandatory-to-implement secure transport is TLS ^RFC5246^.
+The YANG module specified in this document defines a schema for data
+that is designed to be accessed via network management protocols such
+as NETCONF ^RFC6241^ or RESTCONF ^RFC8040^. The lowest NETCONF layer
+is the secure transport layer, and the mandatory-to-implement secure
+transport is Secure Shell (SSH) ^RFC6242^. The lowest RESTCONF layer
+is HTTPS, and the mandatory-to-implement secure transport is TLS
+^RFC5246^.
 
 The NETCONF access control model ^RFC6536^ provides the means to
 restrict access for particular NETCONF or RESTCONF users to a
